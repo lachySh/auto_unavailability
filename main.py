@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QLabel, QPushButton, QDialog, QVBoxLayout, QCalendarWidget, QLayout
 import sys
-from PyQt5 import QtGui
+from PyQt5 import QtGui, QtCore
 
 app = QApplication([])
 
@@ -14,17 +14,19 @@ class Window(QDialog):
         self.height = 400
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-
         self.Calendar()
 
         self.show()
-    
+
     def Calendar(self):
         vbox = QVBoxLayout()
         self.calendar = QCalendarWidget()
         self.calendar.setGridVisible(True)
-       # self.calendar.setFirstDayOfWeek(self, )
+        self.calendar.setFirstDayOfWeek(QtCore.Qt.Thursday)
         date = self.calendar.selectedDate()
+        self.lbl = QLabel()
+        self.lbl.setText("Select a Thursday date to start week with")
+        vbox.addWidget(self.lbl)
         print(date)
 
         vbox.addWidget(self.calendar)
