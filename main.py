@@ -58,6 +58,36 @@ class Window(QDialog):
                 box.setText(times[i-1][j-2])
                 grid.addWidget(box,i,j)
 
+
+        def handleButton():
+            date = calendar.selectedDate()
+            strdate = QDate.toPyDate(date)
+            enddate = strdate + timedelta(days=6)
+            
+            strdate = str(strdate)
+            strdate = strdate.split("-")
+            enddate = str(enddate)
+            enddate = enddate.split("-")
+            print(strdate)
+            print(enddate)
+            #FILE READING
+            f = open("tdb.txt", "r")
+            startdate = f.readline()
+            enddate = f.readline()
+
+            times = []
+            temp_times = []
+
+            for n in range(0,7):
+                temp_times = f.readline().split()
+                times.append(temp_times)
+                #print(temp_times)
+            msg = f.readline()
+            #FILE WRITING
+            f = open("tdb.txt", "w")
+            f.write(strdate[2]+"."+strdate[1]+"."+strdate[0]+"\n")
+            f.write(str(enddate[2])+"."+str(enddate[1])+"."+str(enddate[0])+"\n")
+
         bbox = QVBoxLayout()
         button = QPushButton()
         button.setText("Set Unavailability")
@@ -76,33 +106,7 @@ class Window(QDialog):
 
         self.show()
 
-        """def handleButton():
-            date = calendar.selectedDate()
-            strdate = QDate.toPyDate(date)
-            enddate = strdate + timedelta(days=6)
-            print(enddate)
-            strdate = str(strdate)
-            strdate = strdate.split("-")
-            enddate = str(enddate)
-            enddate = enddate.split("-")
-            print(strdate)
-            #FILE READING
-            f = open("tdb.txt", "r")
-            startdate = f.readline()
-            enddate = f.readline()
-
-            times = []
-            temp_times = []
-
-            for n in range(0,7):
-                temp_times = f.readline().split()
-                times.append(temp_times)
-                #print(temp_times)
-            msg = f.readline()
-            #FILE WRITING
-            f = open("tdb.txt", "w")
-            f.write(strdate[2]+"."+strdate[1]+"."+strdate[0])
-            f.write(enddate[2]+"."+enddate[1]+"."+enddate[0])"""
+        
 
         
 
